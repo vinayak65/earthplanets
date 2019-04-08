@@ -15,7 +15,7 @@ import org.springframework.ws.transport.http.MessageDispatcherServlet;
 import org.springframework.ws.wsdl.wsdl11.DefaultWsdl11Definition;
 import org.springframework.xml.xsd.SimpleXsdSchema;
 import org.springframework.xml.xsd.XsdSchema;
-
+import com.example.ResourceReader;
 import com.example.ExcelFileReader;
 import com.example.domain.Routes;
 import com.example.service.GraphService;
@@ -34,6 +34,8 @@ public class WebServiceConfig extends WsConfigurerAdapter {
 	@Autowired
     GraphService graphService;
 	
+	@Autowired
+	ResourceReader resourceRead;
 
 	public WebServiceConfig() {
 		// TODO Auto-generated constructor stub
@@ -59,8 +61,8 @@ public class WebServiceConfig extends WsConfigurerAdapter {
 	    
 	 // TODO Auto-generated constructor stub
 	 		try {
-	     		ExcelFileReader.ps = planetService;
-	         		ExcelFileReader.readExcel();
+	 			resourceRead.setPlanetService(planetService);
+	 			resourceRead.readExcel();
 	         		
 	         		routesService.saveAll(Routes.list);
 	         		

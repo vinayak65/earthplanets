@@ -11,13 +11,14 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import com.example.service.PlanetService;
+import com.example.ResourceReader;
 import com.example.config.HibernateInitializator;
 
 @SpringBootApplication
 @EntityScan("com.example.domain")
 @EnableAutoConfiguration
 @EnableJpaRepositories(basePackages = "com.example.repositories")
-@ComponentScan(basePackageClasses={PlanetService.class} ,basePackages = "com.example.webservice.domain,com.example.demo,com.example.webservice.config")
+@ComponentScan(basePackageClasses={PlanetService.class, ResourceReader.class} ,basePackages = "com.example.webservice.domain,com.example.demo,com.example.webservice.config")
 
 public class DemoApplication {
 

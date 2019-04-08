@@ -33,6 +33,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.ResourceLoaderAware;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
@@ -47,6 +48,8 @@ public class ExcelFileReader {
 	@Autowired
     private static ResourceLoader resourceLoader;
 	
+	@Autowired
+	 private static ApplicationContext ctx;
 	
 	//final Resource fileResource = resourceLoader.getResource("classpath:/excellRead.xlsx");
 	
@@ -434,17 +437,22 @@ public class ExcelFileReader {
 		//InputStream in = ResourceUtils.getURL(fileName).openStream();
 		String prefixedResourcePath = ResourceUtils.CLASSPATH_URL_PREFIX + fileName;
 	    ClassPathResource classPathResource = new ClassPathResource(prefixedResourcePath);
-
+	    Resource  resourcExcel = ctx.getResource(prefixedResourcePath); 
+	    if(resourcExcel !=null){
+			System.out.println("The  resourcExcel " +resourcExcel +" Resource exists ");
+			
+		}  
+	    
 	    if (classPathResource.exists()) {
 			System.out.println("The fileName " +fileName +" Resource exists ");
 		}
 		//File file = new File("G:/Seagate Dashboard 2.0/WP6PORTAL/springboot/demo/src/main/resources/excellRead.xlsx");
 		//InputStream in = new FileInputStream(file);
 
-		 FileInputStream fis = new FileInputStream(file);
+		 //FileInputStream fis = new FileInputStream(file);
 		// Finds the workbook instance for XLSX file
-		 XSSFWorkbook myWorkBook = new XSSFWorkbook(fis);
-		// XSSFWorkbook myWorkBook = new XSSFWorkbook(classPathResource.getInputStream());
+		// XSSFWorkbook myWorkBook = new XSSFWorkbook(fis);
+		XSSFWorkbook myWorkBook = new XSSFWorkbook(resourcExcel.getInputStream());
 		// Read the Planet Names excel Sheet
 		XSSFSheet mySheet = myWorkBook.getSheetAt(0);
 		List<PlanetNames> pNames = readPlanetNames(mySheet);
