@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:GetRouteResponse xmlns:tns="http://www.example.org/GraphService" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.example.org/GraphService graph-point.xsd ">
+  <tns:nextRoute>
+    <tns:name>tns:name</tns:name>
+    <tns:distance>tns:distance</tns:distance>
+  </tns:nextRoute>
+</tns:GetRouteResponse>

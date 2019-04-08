@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:sch="http://www.example.org/GraphService" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.example.org/GraphService" targetNamespace="http://www.example.org/GraphService">
+  <wsdl:types>
+    <schema xmlns="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.example.org/GraphService">
+
+  <element name="SendRouteRequest">
+      <complexType>
+    	<sequence>
+    		<element name="sendRouteRequest" type="tns:GraphPoint">
+    		</element>
+    		<element name="destRouteRequest" type="tns:GraphPoint">
+    		</element>
+    	</sequence>
+    </complexType>
+   </element>
+ 
+ <element name="GetRouteResponse">
+      <complexType>
+    	<sequence>
+    		<!--  <element name="routeRequest" type="tns:GraphPoint">
+    		</element>-->
+    		<element maxOccurs="unbounded" minOccurs="1" name="nextRoute" type="tns:GraphPoint">
+    		</element>
+    	</sequence>
+    </complexType>
+   </element>
+
+
+
+    <complexType name="GraphPoint">
+    	<sequence>
+    		<element name="name" type="string">
+    		</element>
+    		<element name="distance" type="string">
+    		</element>
+    	</sequence>
+    </complexType>
+</schema>
+  </wsdl:types>
+  <wsdl:message name="GetRouteResponse">
+    <wsdl:part element="tns:GetRouteResponse" name="GetRouteResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SendRouteRequest">
+    <wsdl:part element="tns:SendRouteRequest" name="SendRouteRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="GraphPointPort">
+    <wsdl:operation name="GetRoute">
+      <wsdl:output message="tns:GetRouteResponse" name="GetRouteResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendRoute">
+      <wsdl:input message="tns:SendRouteRequest" name="SendRouteRequest">
+    </wsdl:input>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="GraphPointPortSoap11" type="tns:GraphPointPort">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="GetRoute">
+      <soap:operation soapAction=""/>
+      <wsdl:output name="GetRouteResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendRoute">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="SendRouteRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="GraphPointPortService">
+    <wsdl:port binding="tns:GraphPointPortSoap11" name="GraphPointPortSoap11">
+      <soap:address location="http://localhost:8080/ws"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

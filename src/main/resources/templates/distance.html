@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Spring Shortest Path - Variables</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	 <link rel="stylesheet" type="text/css" media="all"
+      href="../../css/thvsjsp.css" th:href="@{/css/thvsjsp.css}"/>
+      
+ <script type="text/javascript">
+ 
+ function nodeplanetCheck() {
+	    if (document.getElementById('nodeCheck').checked) {
+	        document.getElementById('ifYes').style.visibility = 'visible';
+	        document.getElementById('ifNo').style.visibility = 'hidden';
+	    }
+	    else  { document.getElementById('ifYes').style.visibility = 'hidden';
+	         document.getElementById('ifNo').style.visibility = 'visible';
+	  
+	    }
+
+	}
+ </script>
+</head>
+<body>
+<div class="container">
+
+    <h2>Planet Distance Calculator</h2>
+    <div>
+        <form class="form-horizontal" th:object="${distanceForm}"   th:action="@{/distance}" method="post">
+			
+			
+			   <div class="hero-unit">
+			      
+               
+                <!--    <form:radiobutton path = "gender" value = "M" label = "Male" />
+                  <form:radiobutton path = "gender" value = "F" label = "Female" /> -->
+                  
+              Node (e.g A/B) <input type="radio" onclick="javascript:nodeplanetCheck();" th:field="*{node}"  value = "1" id="nodeCheck"/> Planet Name 
+                <input type="radio" onclick="javascript:nodeplanetCheck();" th:field="*{node}"  value = "0" id="planetCheck"/><br/>
+  				  <div id="ifYes" style="visibility:hidden">
+      				   <label path = "Node">Start Node </label>  <input type='text' id='startnode' th:field="*{startNode}"/><br/>
+      				   <label path = "Node">End Node </label>    
+      				   <input type="text" id="endnode" th:field="*{endNode}"/>
+      				   
+   				  </div>
+        		<div id="ifNo" style="visibility:visible">
+      				  <label path = "Planet">Start Planet </label>   <input type='text' id='startplanet' th:field="*{startPlanet}"/><br/>
+      				   <label path = "Planet">End Planet </label>   
+      				   <input type='text' id='endplanet' th:field="*{endPlanet}"/>
+   				</div>
+       
+       
+            <div class="row">
+                <button type="submit" class="btn btn-large btn-success">Submit</button>
+            </div>
+            
+            <div th:switch="${distanceForm.distance}"> 
+ 				 <p th:case="0">User is an administrator</p>
+ 				 <p th:case="ters">User is a manager</p>
+ 				 <p th:case="*">User is some other thing</p> 
+			</div>
+			<!-- IF CUSTOMER IS ANONYMOUS -->
+			<div th:if="${distanceForm.distance}">
+				   <div th:text="'The distance between '+ ${distanceForm.startPlanet} +' and ' +${distanceForm.endPlanet}+' = '+${distanceForm.distance} "> </div>
+			</div>
+			<!-- ELSE -->
+			<div th:unless="${distanceForm.distance}">
+			  
+			</div>
+         	<div th:if="${excelLoaded}"><p><a href="/index">Manage Planets</a></p>
+       		 <p><a href="/index2">Manage Routes</a></p> 
+       		 </div>
+       		</div>
+         	</form>
+    </div>
+</div>
+
+</body>
+</html>
